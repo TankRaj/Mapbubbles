@@ -5,13 +5,13 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.tanka.accessories.mapbubbles.models.Location;
+import com.tanka.accessories.mapbubbles.models.Place;
 
 /**
  * Created by access-tanka on 2/25/18.
  */
 
-@Database(entities = {Location.class}, version = 1)
+@Database(entities = {Place.class}, version = 1)
 public abstract class AppDatabase extends RoomDatabase {
 
     public static final String DB_NAME = "note_db";

@@ -7,7 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 import java.io.Serializable;
 
 @Entity
-public class Location implements Serializable {
+public class Place implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
@@ -23,7 +23,7 @@ public class Location implements Serializable {
     public String lng;
 
 
-    public Location(String name, String lat, String lng) {
+    public Place(String name, String lat, String lng) {
         this.name = name;
         this.lat = lat;
         this.lng = lng;

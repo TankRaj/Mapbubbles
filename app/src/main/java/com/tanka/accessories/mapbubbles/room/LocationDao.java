@@ -6,7 +6,7 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.tanka.accessories.mapbubbles.models.Location;
+import com.tanka.accessories.mapbubbles.models.Place;
 
 import java.util.List;
 
@@ -18,23 +18,23 @@ import java.util.List;
 public interface LocationDao {
 
     @Insert
-    void insertAll(Location... locations);
+    void insertAll(Place... locations);
 
     @Update
-    void updateAll(Location... locations);
+    void updateAll(Place... locations);
 
-    @Query("SELECT * FROM location")
-    List<Location> getAllLocations();
+    @Query("SELECT * FROM Place")
+    List<Place> getAllLocations();
 
-    @Query("SELECT * FROM location where name LIKE :keyword")
-    List<Location> getLocation(String keyword);
+    @Query("SELECT * FROM Place where name LIKE :keyword")
+    List<Place> getLocation(String keyword);
 
     @Delete
-    void deleteAll(Location... locations);
+    void deleteAll(Place... locations);
 
     @Update
-    void editLocation(Location location);
+    void editLocation(Place location);
 
-//    @Query("UPDATE Location SET `title` = :txTitle, `body` = :txBody, `date` = :txDate, `type` = :txType   WHERE id = :tid")
+//    @Query("UPDATE Place SET `title` = :txTitle, `body` = :txBody, `date` = :txDate, `type` = :txType   WHERE id = :tid")
 //    void updateLocation(long tid, String txTitle, String txBody, String txDate, String txType);
 }

@@ -20,5 +20,15 @@
         android:src="@android:drawable/ic_input_add"
         android:tint="@android:color/white"
         android:padding="8dp"
-        android:layout_margin="16dp"/>
+        android:layout_margin="8dp"/>
+
+    <TextView
+        android:id="@+id/tvLoc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:layout_margin="8dp"
+        android:layout_alignParentLeft="true"
+        android:textColor="@android:color/holo_blue_light"
+        android:textStyle="bold"/>
 </RelativeLayout>
