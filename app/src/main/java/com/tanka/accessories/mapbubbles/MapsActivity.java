@@ -2,12 +2,15 @@ package com.tanka.accessories.mapbubbles;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -37,11 +40,12 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
-        LocationListener,GoogleApiClient.OnConnectionFailedListener {
+        LocationListener, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
     protected GoogleApiClient mGoogleApiClient;
     private final int PLACE_PICKER_REQUEST = 5;
+    private final int LOCATION_PERMISSION_REQUEST = 112;
     private ProgressDialog dialog;
     private AppDatabase dataBase;
     private List<Place> locationList;
@@ -69,9 +73,16 @@ public class MapsActivity extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+
+        if (Build.VERSION.SDK_INT >= 23)
+            if (!checkPermission(MapsActivity.this)) {
+                showPermissionDialog();
+            }
+
         if (!isGooglePlayServicesAvailable()) {
             finish();
         }
+
         createLocationRequest();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(LocationServices.API)
@@ -256,8 +267,24 @@ public class MapsActivity extends FragmentActivity implements
 
     }
 
-    private void dismissProgress(){
+    private void dismissProgress() {
         dialog.dismiss();
+    }
+
+    public static boolean checkPermission(final Context context) {
+        return ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED;
+    }
+
+
+    public void showPermissionDialog() {
+        if (!checkPermission(this)) {
+            ActivityCompat.requestPermissions(
+                    this,
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION,
+                            android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST);
+        }
     }
 
 
